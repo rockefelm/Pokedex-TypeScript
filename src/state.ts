@@ -1,6 +1,6 @@
 import { createInterface, type Interface } from "readline";
 import { getCommands } from "./commands.js";
-import { PokeAPI } from "./pokeapi.js";
+import { PokeAPI, type Pokemon } from "./pokeapi.js";
 
 // holds the command type definition
 // This file defines the structure of a CLI command used in the initState initializer
@@ -17,6 +17,7 @@ export type State = {
     pokeAPI: PokeAPI;
     nextLocationsURL: string | null;
     prevLocationsURL: string | null;
+    caughtPokemon: Record<string, Pokemon>;
 };
 
 // Function to initialize the application state
@@ -29,11 +30,13 @@ export function initState(cacheInterval: number): State {
     });
     // The state object holds the readline interface, command registry, PokeAPI instance, and
     // URLs for pagination of locations.
+    // It also keeps track of caught Pokémon.
     return { 
         readline: rl,
         commands: getCommands(),
         pokeAPI: new PokeAPI(cacheInterval),
         nextLocationsURL: null,
         prevLocationsURL: null,
+        caughtPokemon: {},
     };
 }
