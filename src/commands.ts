@@ -6,7 +6,11 @@ import { commandHelp } from "./command_help.js";
 import { commandMapForward, commandMapBack } from "./command_map.js";
 import { commandExplore } from "./command_explore.js";
 import { commandCatch } from "./command_catch.js";
+import { commandInspect } from "./command_inspect.js";
+import { commandPokedex } from "./command_pokedex.js";
+import { PokeAPI } from "./pokeapi.js";
 
+// a command registry function
 export function getCommands(): Record<string, CLICommand> {
     return {
         exit: {
@@ -38,6 +42,16 @@ export function getCommands(): Record<string, CLICommand> {
             name: "catch <pokemon_name>",
             description: "Catch a pokemon",
             callback: commandCatch,
+        },
+        inspect: {
+            name: "inspect <pokemon_name>",
+            description: "View details about a caught pokemon",
+            callback: commandInspect,
+        },
+        pokedex: {
+            name: "pokedex",
+            description: "View your caught pokemon",
+            callback: commandPokedex,
         },
         // can add more commands here
     }
