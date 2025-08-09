@@ -20,7 +20,7 @@ export function startREPL() {
     if (command in state.commands) {
       try {
         // Execute the corresponding command callback function in the state object
-        state.commands[command].callback(state);
+        await state.commands[command].callback(state);
       } catch (err) {
         if (err instanceof Error) {
           console.log(err.message);
