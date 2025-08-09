@@ -7,7 +7,7 @@ import { PokeAPI } from "./pokeapi.js";
 export type CLICommand = {
   name: string;
   description: string;
-  callback: (State: State) => Promise<void>;
+  callback: (state: State, ...args: string[]) => Promise<void>;
 };
 
 // holds the application state type
@@ -20,20 +20,19 @@ export type State = {
 };
 
 // Function to initialize the application state
-export function initState(): State {
+export function initState(cacheInterval: number): State {
     // Create a readline interface for user input
     const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: "pokedex > ",
-  });
+        input: process.stdin,
+        output: process.stdout,
+        prompt: "pokedex > ",
+    });
     // The state object holds the readline interface, command registry, PokeAPI instance, and
     // URLs for pagination of locations.
-    const commandRegistry = getCommands();
     return { 
         readline: rl,
-        commands: commandRegistry,
-        pokeAPI: new PokeAPI(),
+        commands: getCommands(),
+        pokeAPI: new PokeAPI(cacheInterval),
         nextLocationsURL: null,
         prevLocationsURL: null,
     };
