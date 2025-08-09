@@ -1,6 +1,6 @@
 // this holds the command registration logic
 // This file is responsible for registering commands in the REPL
-import { CLICommand } from "./command.js";
+import { CLICommand } from "./state.js";
 import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
 
