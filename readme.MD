@@ -7,6 +7,7 @@ A simple TypeScript application that lets users explore and interact with Pokém
 - Vite (for testing)
 - Node.js
 
+## Getting Started
 
 - **help**  
   Display help information for commands.  
