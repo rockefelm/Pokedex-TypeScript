@@ -1,4 +1,3 @@
-import { S } from "vitest/dist/chunks/config.d.D2ROskhv.js";
 import { Cache } from "./pokecache.js";
 
 export class PokeAPI {
@@ -42,9 +41,10 @@ export class PokeAPI {
         }
     }
 
+
     async fetchLocation(locationName: string): Promise<Location> {
         const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
-
+        // Check if the URL is already cached and return it instead if it is.
         const cached = this.#cache.get<Location>(url);
         if (cached) {
             return cached;
@@ -52,7 +52,7 @@ export class PokeAPI {
 
         try {
             const resp = await fetch(url);
-
+            // Check if the response is ok (status code 200-299)
             if (!resp.ok) {
                 throw new Error(`${resp.status} ${resp.statusText}`);
             }
@@ -61,6 +61,7 @@ export class PokeAPI {
             this.#cache.add(url, location);
             return location;
         } catch (e) {
+            // If there is an error, throw a new error with the message from the caught error
             throw new Error(
                 `Error fetching location '${locationName}': ${(e as Error).message}`,
             );
